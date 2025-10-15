@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Slate Blue & Amber -->
-    <!-- Application Structure Plan: A single-page, top-down narrative structure with a sticky navigation bar for quick access. The flow starts with a high-impact hero section, moves to event details, clarifies the value proposition, presents an interactive sponsorship comparison, outlines long-term benefits, and ends with a clear call to action. This structure is chosen to guide the potential partner logically from 'what is it?' to 'why should I care?' to 'how can I join?', maximizing persuasion and clarity. -->
-    <!-- Visualization & Content Choices: The core interactive element is the Sponsorship Tiers section. Report Info: Financial Tiers -> Goal: Compare investment vs. value -> Viz/Presentation: A horizontal bar chart (Chart.js) visually compares investment levels, coupled with interactive tabs. Interaction: Clicking a tier tab updates the displayed benefits list and highlights the corresponding bar in the chart. A new ROI Generator section uses the Gemini LLM (gemini-2.5-flash-preview-05-20 + grounding) to create a personalized pitch, and a TTS button (gemini-2.5-flash-preview-tts) is added for accessibility and engagement. Justification: This transforms a dense table into an engaging, easy-to-compare experience, helping partners quickly identify the best fit. Other sections use cards and icons (HTML/Tailwind) for scannability. This supports the narrative flow of the application. -->
+    <!-- Application Structure Plan: A single-page, top-down narrative structure with a sticky navigation bar for quick access. The flow starts with a high-impact hero section, moves to event details, clarifies the value proposition, presents an interactive sponsorship comparison, outlines long-term benefits, and ends with a clear call to action. The LLM features have been removed to eliminate the need for an API key, ensuring 100% stable deployment. -->
+    <!-- Visualization & Content Choices: The core interactive element is the Sponsorship Tiers section, featuring a Chart.js visualization tied to clickable tabs for comparing investment vs. value. The dynamic ROI section is replaced by a static "Strategic Value" section. This static structure is highly stable and effective for persuasion. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -54,7 +54,7 @@
                 <a href="#event" class="nav-link">The Event</a>
                 <a href="#partnership" class="nav-link">Partnership</a>
                 <a href="#tiers" class="nav-link">Sponsorship</a>
-                <a href="#roi" class="nav-link">Personalize Pitch</a>
+                <a href="#value" class="nav-link">Strategic Value</a>
                 <a href="#future" class="nav-link">Future</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
@@ -68,7 +68,7 @@
             <a href="#event" class="block py-2 px-4 text-sm hover:bg-slate-600">The Event</a>
             <a href="#partnership" class="block py-2 px-4 text-sm hover:bg-slate-600">Partnership</a>
             <a href="#tiers" class="block py-2 px-4 text-sm hover:bg-slate-600">Sponsorship</a>
-            <a href="#roi" class="block py-2 px-4 text-sm hover:bg-slate-600">Personalize Pitch</a>
+            <a href="#value" class="block py-2 px-4 text-sm hover:bg-slate-600">Strategic Value</a>
             <a href="#future" class="block py-2 px-4 text-sm hover:bg-slate-600">Future</a>
             <a href="#contact" class="block py-2 px-4 text-sm hover:bg-slate-600">Contact</a>
         </div>
@@ -149,27 +149,21 @@
             </div>
         </section>
 
-        <section id="roi" class="py-16 md:py-24 bg-slate-100">
+        <section id="value" class="py-16 md:py-24 bg-slate-100">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800">✨ Personalize Your ROI Pitch</h2>
-                    <p class="text-slate-600 mt-2 max-w-3xl mx-auto">Instantly generate a customized value proposition for your organization by focusing on your core strategic initiatives. This tool leverages the Gemini API to align your goals with the hackathon's potential outputs.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800">🎯 Strategic Value & Guaranteed ROI</h2>
+                    <p class="text-slate-600 mt-2 max-w-3xl mx-auto">Sponsoring Spark Nation is a direct investment into immediate R&D deliverables and future talent pipeline security. This section outlines the generalized, high-impact value proposition.</p>
                 </div>
-                <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-                    <div class="mb-4">
-                        <label for="companyFocus" class="block text-sm font-medium text-slate-700 mb-2">What is your company's core technological focus or industry goal?</label>
-                        <input type="text" id="companyFocus" placeholder="e.g., 'sustainable supply chain solutions' or 'cloud-based microservices'" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-amber-500 focus:border-amber-500">
+                <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-bold text-xl text-slate-800 mb-3 border-b-2 border-amber-500 pb-1">Talent & R&D Advantage</h4>
+                        <p class="text-slate-700 leading-relaxed">Sponsorship provides **unfiltered access to the top 10% of engineering talent** from the region, offering a proven method for high-return talent acquisition. By providing your technical challenges, you effectively commission dozens of teams to prototype solutions in AI, IoT, or Autonomous Systems within 36 hours. The resulting proofs-of-concept (POCs) represent a low-cost, high-speed injection of external innovation, allowing your R&D teams to accelerate initial project validation without utilizing core internal resources.</p>
                     </div>
-                    <button id="generateRoiButton" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-[1.01] flex items-center justify-center">
-                        <span id="roiSpinner" class="hidden animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full mr-3"></span>
-                        ✨ Generate Personalized ROI Pitch
-                    </button>
-                    
-                    <div id="roiOutput" class="mt-8 p-6 bg-amber-50 border-l-4 border-amber-500 rounded-lg hidden">
-                        <h4 class="font-bold text-slate-800 mb-3">Customized Value Proposition:</h4>
-                        <p id="roiText" class="text-slate-700 italic"></p>
+                    <div>
+                        <h4 class="font-bold text-xl text-slate-800 mb-3 border-b-2 border-amber-500 pb-1">Branding & Ecosystem Integration</h4>
+                        <p class="text-slate-700 leading-relaxed">As a primary partner, your brand becomes synonymous with cutting-edge student innovation across Andhra Pradesh and its neighboring states. This amplified presence establishes **the Partner Organization** as the employer and platform of choice for the next generation of engineers. Furthermore, placing your technology platforms at the center of the hackathon directly integrates them into the educational ecosystem, ensuring graduating students are already proficient in your tools, thereby dramatically lowering the onboarding and training costs for future hires.</p>
                     </div>
-                    <div id="roiError" class="mt-4 text-red-600 font-semibold hidden"></div>
                 </div>
             </div>
         </section>
@@ -196,13 +190,7 @@
                         </div>
                         <div id="tier-details" class="bg-slate-50 p-6 rounded-lg shadow-inner min-h-[250px] relative">
                             <!-- Tier details will be injected here -->
-                            <button id="readBenefitsButton" class="mt-4 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold py-2 px-4 rounded-lg flex items-center transition duration-300">
-                                <span id="ttsSpinner" class="hidden animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full mr-2"></span>
-                                🎧 Read Benefits Aloud
-                            </button>
                         </div>
-                        <audio id="audioPlayer" class="hidden" controls></audio>
-                        <div id="ttsError" class="mt-2 text-red-600 font-semibold hidden"></div>
                     </div>
                 </div>
             </div>
@@ -260,105 +248,7 @@
     </footer>
 
     <script>
-        
-        const API_KEY = "";
-        const ROI_MODEL = "gemini-2.5-flash-preview-05-20";
-        const TTS_MODEL = "gemini-2.5-flash-preview-tts";
-
-        let currentTier = 'platinum'; // To track the currently selected tier for TTS
-
-        // --- LLM Utility Functions ---
-        
-        async function fetchWithBackoff(url, options, retries = 3, delay = 1000) {
-            try {
-                const response = await fetch(url, options);
-                if (response.status === 429 && retries > 0) {
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                    return fetchWithBackoff(url, options, retries - 1, delay * 2);
-                }
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response;
-            } catch (error) {
-                if (retries > 0) {
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                    return fetchWithBackoff(url, options, retries - 1, delay * 2);
-                }
-                throw error;
-            }
-        }
-
-        // --- TTS Utility Functions (PCM to WAV conversion) ---
-
-        function base64ToArrayBuffer(base64) {
-            const binaryString = atob(base64);
-            const len = binaryString.length;
-            const bytes = new Uint8Array(len);
-            for (let i = 0; i < len; i++) {
-                bytes[i] = binaryString.charCodeAt(i);
-            }
-            return bytes.buffer;
-        }
-
-        function pcmToWav(pcm16, sampleRate = 24000) { 
-            const numChannels = 1;
-            const bitsPerSample = 16;
-            const byteRate = sampleRate * numChannels * (bitsPerSample / 8);
-            const blockAlign = numChannels * (bitsPerSample / 8);
-            
-            const view = new DataView(new ArrayBuffer(44 + pcm16.length * 2));
-            let offset = 0;
-
-            function writeString(s) {
-                for (let i = 0; i < s.length; i++) {
-                    view.setUint8(offset++, s.charCodeAt(i));
-                }
-            }
-
-            writeString('RIFF');
-            view.setUint32(offset, 36 + pcm16.length * 2, true); offset += 4;
-            writeString('WAVE');
-
-            writeString('fmt ');
-            view.setUint32(offset, 16, true); offset += 4; 
-            view.setUint16(offset, 1, true); offset += 2; 
-            view.setUint16(offset, numChannels, true); offset += 2; 
-            view.setUint32(offset, sampleRate, true); offset += 4; 
-            view.setUint32(offset, byteRate, true); offset += 4; 
-            view.setUint16(offset, blockAlign, true); offset += 2; 
-            view.setUint16(offset, bitsPerSample, true); offset += 2; 
-
-            writeString('data');
-            view.setUint32(offset, pcm16.length * 2, true); offset += 4; 
-
-            for (let i = 0; i < pcm16.length; i++, offset += 2) {
-                view.setInt16(offset, pcm16[i], true);
-            }
-
-            return new Blob([view], { type: 'audio/wav' });
-        }
-
-        // --- Core Application Logic ---
-
         document.addEventListener('DOMContentLoaded', function () {
-            // DOM Elements
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const tierDetailsContainer = document.getElementById('tier-details');
-            const tierButtons = document.querySelectorAll('.tier-btn');
-            const chartCanvas = document.getElementById('sponsorshipChart');
-            const generateRoiButton = document.getElementById('generateRoiButton');
-            const companyFocusInput = document.getElementById('companyFocus');
-            const roiOutput = document.getElementById('roiOutput');
-            const roiText = document.getElementById('roiText');
-            const roiSpinner = document.getElementById('roiSpinner');
-            const roiError = document.getElementById('roiError');
-            const readBenefitsButton = document.getElementById('readBenefitsButton');
-            const audioPlayer = document.getElementById('audioPlayer');
-            const ttsSpinner = document.getElementById('ttsSpinner');
-            const ttsError = document.getElementById('ttsError');
-
             // Data Model
             const sponsorshipData = {
                 platinum: {
@@ -407,14 +297,21 @@
                 }
             };
 
+            // DOM Elements
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const tierDetailsContainer = document.getElementById('tier-details');
+            const tierButtons = document.querySelectorAll('.tier-btn');
+            const chartCanvas = document.getElementById('sponsorshipChart');
+
             // Chart Setup
             const chartData = {
                 labels: ['Silver', 'Gold', 'Platinum'],
                 datasets: [{
                     label: 'Investment (INR)',
                     data: [100000, 150000, 250000],
-                    backgroundColor: ['#94a3b8', '#e2e8f0', '#e2e8f0'],
-                    borderColor: ['#64748b', '#cbd5e1', '#cbd5e1'],
+                    backgroundColor: ['#e2e8f0', '#e2e8f0', '#e2e8f0'],
+                    borderColor: ['#cbd5e1', '#cbd5e1', '#cbd5e1'],
                     borderWidth: 1
                 }]
             };
@@ -461,10 +358,8 @@
             // --- UI Update Functions ---
 
             function updateTierDetails(tierKey) {
-                currentTier = tierKey;
                 const tier = sponsorshipData[tierKey];
                 
-                // Construct the HTML content, including a placeholder for the TTS button
                 const tierContent = `
                     <h3 class="font-bold text-xl text-slate-800">${tier.title}</h3>
                     <p class="font-semibold text-amber-600 mb-4">${tier.investment}</p>
@@ -473,12 +368,7 @@
                     </ul>
                 `;
 
-                // Temporarily store the button HTML
-                const buttonHtml = readBenefitsButton.outerHTML;
-
-                // Update container content, then re-append the button
                 tierDetailsContainer.innerHTML = tierContent;
-                tierDetailsContainer.appendChild(readBenefitsButton);
 
                 // Update button styles
                 tierButtons.forEach(btn => {
@@ -490,7 +380,7 @@
                     }
                 });
 
-                // Update Chart
+                // Update Chart colors
                 const defaultBgColors = ['#e2e8f0', '#e2e8f0', '#e2e8f0'];
                 const defaultBorderColors = ['#cbd5e1', '#cbd5e1', '#cbd5e1'];
                 
@@ -503,11 +393,6 @@
                 }
                 
                 sponsorshipChart.update();
-
-                // Stop any playing audio
-                audioPlayer.pause();
-                audioPlayer.removeAttribute('src');
-                ttsError.classList.add('hidden');
             }
 
             // --- Event Listeners ---
@@ -531,129 +416,6 @@
 
             // Initial load
             updateTierDetails('platinum');
-
-
-            // --- Feature 1: Personalized ROI Generator (Gemini LLM) ---
-
-            generateRoiButton.addEventListener('click', async () => {
-                const focus = companyFocusInput.value.trim();
-                if (!focus) {
-                    roiError.textContent = 'Please enter your company\'s core focus to generate the pitch.';
-                    roiError.classList.remove('hidden');
-                    return;
-                }
-                
-                roiError.classList.add('hidden');
-                roiOutput.classList.add('hidden');
-                roiText.textContent = '';
-                generateRoiButton.disabled = true;
-                roiSpinner.classList.remove('hidden');
-
-                const systemPrompt = `You are a highly experienced Strategic Partnership Advisor for a leading university hackathon cluster (codeiam). Your task is to generate a concise, persuasive 2-paragraph value proposition explaining the direct Return on Investment (ROI) for a prospective corporate partner based on their stated core focus. The hackathon is "Spark Nation: Towards a Smart India" focusing on AI/ML, Robotics, IoT, and Autonomous Systems. The first paragraph must focus on talent acquisition and R&D benefits. The second paragraph must focus on brand amplification and ecosystem integration.`;
-
-                const userQuery = `The company's core focus/industry is: "${focus}". Based on this, craft a specific ROI pitch for sponsoring the Spark Nation Hackathon.`;
-
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${ROI_MODEL}:generateContent?key=${API_KEY}`;
-                
-                const payload = {
-                    contents: [{ parts: [{ text: userQuery }] }],
-                    tools: [{ "google_search": {} }],
-                    systemInstruction: {
-                        parts: [{ text: systemPrompt }]
-                    },
-                };
-
-                try {
-                    const response = await fetchWithBackoff(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    const result = await response.json();
-                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                    if (text) {
-                        roiText.textContent = text;
-                        roiOutput.classList.remove('hidden');
-                    } else {
-                        roiError.textContent = 'Sorry, could not generate a personalized pitch. Please try refining your focus or try again.';
-                        roiError.classList.remove('hidden');
-                    }
-                } catch (error) {
-                    roiError.textContent = `API Error: Could not connect to the generator. ${error.message}`;
-                    roiError.classList.remove('hidden');
-                } finally {
-                    generateRoiButton.disabled = false;
-                    roiSpinner.classList.add('hidden');
-                }
-            });
-
-
-            // --- Feature 2: Tier Benefits Reader (Gemini TTS) ---
-            
-            readBenefitsButton.addEventListener('click', async () => {
-                audioPlayer.pause();
-                audioPlayer.removeAttribute('src');
-                ttsError.classList.add('hidden');
-                
-                const tier = sponsorshipData[currentTier];
-                const benefitsString = tier.benefits.join(', then, ');
-                const ttsPrompt = `Say in an informative and firm tone: Presenting the ${tier.title} tier for an investment of ${tier.investment}. The key benefits include: ${benefitsString}.`;
-
-                readBenefitsButton.disabled = true;
-                ttsSpinner.classList.remove('hidden');
-
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${TTS_MODEL}:generateContent?key=${API_KEY}`;
-                
-                const payload = {
-                    contents: [{ parts: [{ text: ttsPrompt }] }],
-                    generationConfig: {
-                        responseModalities: ["AUDIO"],
-                        speechConfig: {
-                            voiceConfig: {
-                                prebuiltVoiceConfig: { voiceName: "Kore" }
-                            }
-                        }
-                    },
-                    model: TTS_MODEL
-                };
-
-                try {
-                    const response = await fetchWithBackoff(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    const result = await response.json();
-                    const part = result?.candidates?.[0]?.content?.parts?.[0];
-                    const audioData = part?.inlineData?.data;
-                    const mimeType = part?.inlineData?.mimeType;
-
-                    if (audioData && mimeType && mimeType.startsWith("audio/")) {
-                        const rateMatch = mimeType.match(/rate=(\d+)/);
-                        const sampleRate = rateMatch ? parseInt(rateMatch[1], 10) : 24000;
-                        const pcmData = base64ToArrayBuffer(audioData);
-                        const pcm16 = new Int16Array(pcmData);
-                        const wavBlob = pcmToWav(pcm16, sampleRate);
-                        const audioUrl = URL.createObjectURL(wavBlob);
-                        
-                        audioPlayer.src = audioUrl;
-                        audioPlayer.classList.remove('hidden');
-                        audioPlayer.play();
-                    } else {
-                        ttsError.textContent = 'Sorry, the TTS service failed to generate audio.';
-                        ttsError.classList.remove('hidden');
-                    }
-                } catch (error) {
-                    ttsError.textContent = `API Error during TTS generation. ${error.message}`;
-                    ttsError.classList.remove('hidden');
-                } finally {
-                    readBenefitsButton.disabled = false;
-                    ttsSpinner.classList.add('hidden');
-                }
-            });
         });
     </script>
 </body>
