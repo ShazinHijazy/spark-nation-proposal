@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Slate Blue & Amber -->
-    <!-- Application Structure Plan: A single-page, top-down narrative structure with a sticky navigation bar for quick access. The flow starts with a high-impact hero section, moves to event details, clarifies the value proposition, presents an interactive sponsorship comparison, outlines long-term benefits, and ends with a clear call to action. The LLM features have been removed to eliminate the need for an API key, ensuring 100% stable deployment. -->
-    <!-- Visualization & Content Choices: The core interactive element is the Sponsorship Tiers section, featuring a Chart.js visualization tied to clickable tabs for comparing investment vs. value. The dynamic ROI section is replaced by a static "Strategic Value" section. This static structure is highly stable and effective for persuasion. -->
+    <!-- Chosen Palette: Slate Blue/Black (Header/Footer/Contact), Amber (#f59e0b - Primary), and White/Light Gray for contrast -->
+    <!-- Application Structure Plan: A single-page, top-down narrative structure with a sticky navigation bar for quick access. The flow starts with a high-impact hero section, moves to event details, clarifies the value proposition, presents an interactive sponsorship comparison, outlines long-term benefits, and ends with a clear call to action. -->
+    <!-- Visualization & Content Choices: The core interactive element is the Sponsorship Tiers section, featuring a Radar Chart (Chart.js) that visualizes the cumulative value proposition (Branding, Talent, R&D) of each tier. The chart only displays the currently selected tier's value footprint, providing a high-impact, professional, and graphical comparison. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -35,8 +35,9 @@
         .nav-link {
             transition: color 0.3s ease;
         }
+        /* Using Amber accent color for hover */
         .nav-link:hover {
-            color: #f59e0b;
+            color: #f59e0b; 
         }
         .tier-card.active {
             border-color: #f59e0b;
@@ -50,12 +51,11 @@
     <header id="header" class="bg-slate-800 text-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <!-- LOGO INTEGRATION POINT 1: Navigation Bar Logo (using raw GitHub image URL) -->
-            <a href="#" class="flex items-center space-x-2">
-                <!-- Corrected URL to GitHub raw content for proper image loading -->
+            <a href="#" class="flex items-center space-x-2 py-1">
                 <img 
-                    src="https://raw.githubusercontent.com/ShazinHijazy/spark-nation-proposal/main/SIH%202025%20(1).png" 
+                    src="https://raw.githubusercontent.com/ShazinHijazy/spark-nation-proposal/main/codeiam%20logo.jpeg" 
                     alt="codeiam Logo" 
-                    class="h-12 w-12" 
+                    class="h-14 w-14" 
                     onerror="this.onerror=null; this.src='https://placehold.co/40x40/f59e0b/slate?text=C';"
                 >
                 <span class="text-lg font-bold">Spark Nation</span>
@@ -87,7 +87,6 @@
     <main>
         <section id="hero" class="bg-slate-900 text-white py-20 md:py-32">
             <div class="container mx-auto text-center px-6">
-                <!-- LOGO INTEGRATION POINT 2 REMOVED HERE -->
                 <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">Spark Nation: Towards a Smart India</h1>
                 <p class="text-lg md:text-xl text-slate-300 mb-2">A National Hackathon by codeiam, Andhra University</p>
                 <p class="font-semibold text-amber-400 text-xl mb-8">October 25th & 26th, 2025</p>
@@ -95,29 +94,30 @@
             </div>
         </section>
 
-        <section id="event" class="py-16 md:py-24 bg-white">
+        <!-- BG: Amber-50 (Light Branded) -->
+        <section id="event" class="py-16 md:py-24 bg-amber-50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Event Profile</h2>
                     <p class="text-slate-600 mt-2 max-w-2xl mx-auto">This high-stakes, 36-hour national-level hackathon will mobilize 250+ top university students to innovate across critical technological domains.</p>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="bg-slate-50 p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-center">
                         <div class="text-4xl text-amber-500 mb-3">🗓️</div>
                         <h3 class="font-bold text-lg mb-1">Dates & Duration</h3>
                         <p class="text-slate-600">Oct 25-26, 2025 (36 Hours)</p>
                     </div>
-                    <div class="bg-slate-50 p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-center">
                         <div class="text-4xl text-amber-500 mb-3">📍</div>
                         <h3 class="font-bold text-lg mb-1">Venue</h3>
                         <p class="text-slate-600">Andhra University</p>
                     </div>
-                    <div class="bg-slate-50 p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-center">
                         <div class="text-4xl text-amber-500 mb-3">👥</div>
                         <h3 class="font-bold text-lg mb-1">Participants</h3>
                         <p class="text-slate-600">250+ Students (B.Tech, M.Tech, PhD)</p>
                     </div>
-                    <div class="bg-slate-50 p-6 rounded-lg shadow-sm text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-center">
                         <div class="text-4xl text-amber-500 mb-3">💡</div>
                         <h3 class="font-bold text-lg mb-1">Themes</h3>
                         <p class="text-slate-600">AI/ML, Robotics, IoT, & Open Innovation</p>
@@ -126,7 +126,8 @@
             </div>
         </section>
 
-        <section id="partnership" class="py-16 md:py-24">
+        <!-- BG: White (Alternating Neutral) -->
+        <section id="partnership" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-800">A Partnership for Innovation & Talent</h2>
@@ -160,7 +161,8 @@
             </div>
         </section>
 
-        <section id="value" class="py-16 md:py-24 bg-slate-100">
+        <!-- BG: Slate-50 (Subtle Neutral Break) -->
+        <section id="value" class="py-16 md:py-24 bg-slate-50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-800">🎯 Strategic Value & Guaranteed ROI</h2>
@@ -179,7 +181,8 @@
             </div>
         </section>
 
-        <section id="tiers" class="py-16 md:py-24 bg-white">
+        <!-- BG: Amber-50 (Light Branded) -->
+        <section id="tiers" class="py-16 md:py-24 bg-amber-50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Explore Sponsorship Tiers</h2>
@@ -189,12 +192,15 @@
                 <div class="lg:flex lg:space-x-8">
                     <div class="lg:w-1/2 mb-8 lg:mb-0">
                         <div class="chart-container">
+                            <!-- Radar Chart for value visualization -->
                             <canvas id="sponsorshipChart"></canvas>
                         </div>
+                        <p class="text-xs text-center text-slate-500 mt-4">Chart illustrates the value footprint (Brand, Talent, R&D Influence) for the selected tier.</p>
                     </div>
                     <div class="lg:w-1/2">
                         <div class="flex flex-wrap gap-2 mb-6">
-                             <button class="tier-btn active px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-800 rounded-full" data-tier="platinum">Platinum</button>
+                             <!-- Updated button styles for branding colors -->
+                             <button class="tier-btn active px-4 py-2 text-sm font-semibold bg-amber-500 text-white rounded-full" data-tier="platinum">Platinum</button>
                              <button class="tier-btn px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-800 rounded-full" data-tier="gold">Gold</button>
                              <button class="tier-btn px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-800 rounded-full" data-tier="silver">Silver</button>
                              <button class="tier-btn px-4 py-2 text-sm font-semibold bg-slate-200 text-slate-800 rounded-full" data-tier="custom">Custom/In-Kind</button>
@@ -207,7 +213,8 @@
             </div>
         </section>
         
-        <section id="future" class="py-16 md:py-24">
+        <!-- BG: White (Alternating Neutral) -->
+        <section id="future" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-6">
                  <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Beyond the Hackathon: A Sustained Partnership</h2>
@@ -271,7 +278,9 @@
                         'Exclusive IP review rights for winning projects',
                         'Guaranteed hiring pool access',
                         'Major contribution to prize pool and marketing'
-                    ]
+                    ],
+                    // [Brand Exposure, Talent Acquisition, R&D/POC Influence] (Max=3)
+                    value: [3, 3, 3] 
                 },
                 gold: {
                     index: 1,
@@ -282,7 +291,8 @@
                         'Dedicated mentor/recruitment lounge',
                         'Major logo visibility on all materials',
                         'Covers participant kits and networking events'
-                    ]
+                    ],
+                    value: [2, 2, 2] 
                 },
                 silver: {
                     index: 2,
@@ -293,7 +303,8 @@
                         'One guaranteed judging panel seat',
                         'Speaker slot at the closing ceremony',
                         'Supports essential operational costs'
-                    ]
+                    ],
+                    value: [1, 1, 1] 
                 },
                 custom: {
                     index: 3,
@@ -304,7 +315,8 @@
                         'Can be monetary or non-monetary (e.g., cloud credits, hardware, catering)',
                         'Benefits package is mutually agreed upon',
                         'Covers specific operational requirements'
-                    ]
+                    ],
+                    value: [0, 0, 0] // No value representation for custom tier
                 }
             };
 
@@ -315,50 +327,79 @@
             const tierButtons = document.querySelectorAll('.tier-btn');
             const chartCanvas = document.getElementById('sponsorshipChart');
 
-            // Chart Setup
-            const chartData = {
-                labels: ['Silver', 'Gold', 'Platinum'],
-                datasets: [{
-                    label: 'Investment (INR)',
-                    data: [100000, 150000, 250000],
-                    backgroundColor: ['#e2e8f0', '#e2e8f0', '#e2e8f0'],
-                    borderColor: ['#cbd5e1', '#cbd5e1', '#cbd5e1'],
-                    borderWidth: 1
-                }]
-            };
-
+            // Chart Setup (Radar Chart for Value Footprint)
+            const chartLabels = ['Brand Exposure', 'Talent Acquisition', 'R&D/POC Influence']; 
+            
             const sponsorshipChart = new Chart(chartCanvas, {
-                type: 'bar',
-                data: chartData,
+                type: 'radar',
+                data: {
+                    labels: chartLabels,
+                    datasets: [
+                        // Platinum Tier Data (Silver/Platinum Color)
+                        {
+                            label: 'Platinum (INR 2.5L)',
+                            data: sponsorshipData.platinum.value, 
+                            backgroundColor: 'rgba(203, 213, 225, 0.5)', // Light Blue/Gray for Platinum
+                            borderColor: '#94a3b8', // Slate-400
+                            pointBackgroundColor: '#94a3b8',
+                            fill: true,
+                            borderWidth: 3,
+                            tension: 0.1
+                        },
+                        // Gold Tier Data (Gold Color)
+                        {
+                            label: 'Gold (INR 1.5L)',
+                            data: sponsorshipData.gold.value,
+                            backgroundColor: 'rgba(253, 224, 71, 0.5)', // Yellow-200/Gold transparency
+                            borderColor: '#facc15', // Gold
+                            pointBackgroundColor: '#facc15',
+                            fill: true,
+                            hidden: true, // Hidden by default
+                            borderWidth: 2,
+                            tension: 0.1
+                        },
+                        // Silver Tier Data (Silver Color)
+                        {
+                            label: 'Silver (INR 1L)',
+                            data: sponsorshipData.silver.value,
+                            backgroundColor: 'rgba(156, 163, 175, 0.5)', // Gray-400/Silver transparency
+                            borderColor: '#6b7280', // Gray-500/Silver
+                            pointBackgroundColor: '#6b7280',
+                            fill: true,
+                            hidden: true, // Hidden by default
+                            borderWidth: 1,
+                            tension: 0.1
+                        }
+                    ]
+                },
                 options: {
-                    indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.x !== null) {
-                                        label += new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 }).format(context.parsed.x);
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
+                    elements: {
+                        line: { borderWidth: 3 }
                     },
                     scales: {
-                        x: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return value / 1000 + 'k';
+                        r: {
+                            angleLines: { color: 'rgba(203, 213, 225, 0.5)' },
+                            grid: { color: 'rgba(203, 213, 225, 0.5)' },
+                            pointLabels: {
+                                font: { size: 14, weight: 'bold' },
+                                color: '#334155'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 3.5,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }, // Managed via tier buttons
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    return context[0].dataset.label;
+                                },
+                                label: function(context) {
+                                    return context.label + ': ' + context.raw + ' (Max Impact: 3)';
                                 }
                             }
                         }
@@ -391,17 +432,16 @@
                     }
                 });
 
-                // Update Chart colors
-                const defaultBgColors = ['#e2e8f0', '#e2e8f0', '#e2e8f0'];
-                const defaultBorderColors = ['#cbd5e1', '#cbd5e1', '#cbd5e1'];
-                
-                sponsorshipChart.data.datasets[0].backgroundColor = [...defaultBgColors];
-                sponsorshipChart.data.datasets[0].borderColor = [...defaultBorderColors];
-
-                if(tier.index <= 2) {
-                    sponsorshipChart.data.datasets[0].backgroundColor[2 - tier.index] = '#f59e0b';
-                    sponsorshipChart.data.datasets[0].borderColor[2 - tier.index] = '#b45309';
-                }
+                // Update Chart interaction (Show only the selected tier, hide the rest)
+                sponsorshipChart.data.datasets.forEach((dataset, index) => {
+                    if (tierKey === 'custom') {
+                        dataset.hidden = true;
+                    } else {
+                        // Platinum is index 0, Gold 1, Silver 2
+                        const chartTierKey = index === 0 ? 'platinum' : (index === 1 ? 'gold' : 'silver');
+                        dataset.hidden = chartTierKey !== tierKey;
+                    }
+                });
                 
                 sponsorshipChart.update();
             }
